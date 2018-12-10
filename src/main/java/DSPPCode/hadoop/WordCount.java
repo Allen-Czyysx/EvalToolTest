@@ -1,4 +1,4 @@
-package DSPPCode;
+package DSPPCode.hadoop;
 
 import java.io.IOException;
 import java.util.StringTokenizer;
@@ -8,7 +8,7 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class HadoopWordCount {
+public class WordCount {
 
     public static class TokenizerMapper
             extends Mapper<Object, Text, Text, IntWritable> {

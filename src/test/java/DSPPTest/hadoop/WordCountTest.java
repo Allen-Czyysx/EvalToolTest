@@ -1,6 +1,6 @@
-package DSPPTest;
+package DSPPTest.hadoop;
 
-import DSPPCode.HadoopWordCount;
+import DSPPCode.hadoop.WordCount;
 import DSPPTest.util.FileOperator;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
@@ -19,7 +19,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class HadoopWordCountTest {
+public class WordCountTest {
 
     static private double points = 0.0D;
 
@@ -46,10 +46,10 @@ public class HadoopWordCountTest {
     @Test
     public void test() throws Exception {
         Job job = Job.getInstance(conf, "word count");
-        job.setJarByClass(HadoopWordCount.class);
-        job.setMapperClass(HadoopWordCount.TokenizerMapper.class);
-        job.setCombinerClass(HadoopWordCount.IntSumReducer.class);
-        job.setReducerClass(HadoopWordCount.IntSumReducer.class);
+        job.setJarByClass(WordCount.class);
+        job.setMapperClass(WordCount.TokenizerMapper.class);
+        job.setCombinerClass(WordCount.IntSumReducer.class);
+        job.setReducerClass(WordCount.IntSumReducer.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
         FileInputFormat.addInputPath(job, new Path("/input"));
