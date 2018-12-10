@@ -49,6 +49,7 @@
             <version>1.6.2</version>
         </dependency>
 
+        <!--JUnit-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

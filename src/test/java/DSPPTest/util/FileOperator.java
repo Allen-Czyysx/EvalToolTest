@@ -1,6 +1,7 @@
 package DSPPTest.util;
 
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
@@ -13,10 +14,10 @@ import java.io.StringWriter;
 
 public class FileOperator {
 
-    static private short DEFAULT_BUFFER_SIZE = 1024;
+    private static short DEFAULT_BUFFER_SIZE = 1024;
 
     // encode in UTF-8
-    static public String readFile2String(String filePath)
+    public static String readLocal2String(String filePath)
             throws java.io.IOException {
         File file = new File(filePath);
         if (file.length() == 0) {
@@ -37,14 +38,22 @@ public class FileOperator {
     }
 
     // encode in UTF-8
-    static public String readHDFS2String(FileSystem fileSystem, String filePath)
+    public static String readHDFS2String(FileSystem fileSystem, String filePath)
             throws java.io.IOException {
         FSDataInputStream inputStream = fileSystem.open(new Path(filePath));
-        String out= IOUtils.toString(inputStream, "UTF-8");
+        String out = IOUtils.toString(inputStream, "UTF-8");
         inputStream.close();
         fileSystem.close();
 
         return out;
+    }
+
+    public static boolean existLocal(String filePath) {
+        return new File(filePath).exists();
+    }
+
+    public static boolean deleteLocalDirectory(String filePath) {
+        return FileUtils.deleteQuietly(new File(filePath).getParentFile());
     }
 
 }
