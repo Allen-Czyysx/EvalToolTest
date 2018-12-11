@@ -10,9 +10,6 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -23,9 +20,7 @@ public class WordCountTest extends TestTemplate {
     private static String outputPath = "/home/chenzh/output/Hadoop";
 
     @BeforeClass
-    public static void init() {
-        BasicConfigurator.configure();
-        Logger.getRootLogger().setLevel(Level.ERROR);
+    public static void deleteOutput() {
         FileOperator.deleteLocalDirectory(outputPath);
     }
 
