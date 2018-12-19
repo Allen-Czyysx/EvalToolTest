@@ -2,7 +2,7 @@ package DSPPTest.hadoop;
 
 import DSPPCode.hadoop.WordCount;
 import DSPPTest.TestTemplate;
-import DSPPTest.util.FileOperator;
+import DSPPTest.util.KVParser;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
@@ -13,21 +13,23 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static DSPPTest.util.FileOperator.*;
+import static DSPPTest.util.Verifier.verifyKV;
 
 public class WordCountTest extends TestTemplate {
 
-    private static String outputPath = "/home/chenzh/output/Hadoop";
+    private static String outputFolder = "/home/chenzh/output/Hadoop";
 
     @BeforeClass
     public static void deleteOutput() {
-        FileOperator.deleteLocalDirectory(outputPath);
+        deleteFolder(outputFolder);
     }
 
     @Test
     public void test() throws Exception {
-        String inputPath = "/home/chenzh_e/input";
-        String answerPath = "/home/chenzh_e/checkout/Hadoop/word_count.out";
+        String inputFile = "/home/chenzh_e/input/word_count";
+        String outputFile = outputFolder + "/part-r-00000";
+        String answerFile = "/home/chenzh_e/checkout/word_count";
 
         Job job = Job.getInstance(new Configuration());
         job.setJarByClass(WordCount.class);
@@ -36,15 +38,12 @@ public class WordCountTest extends TestTemplate {
         job.setReducerClass(WordCount.IntSumReducer.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
-        FileInputFormat.addInputPath(job, new Path(inputPath));
-        FileOutputFormat.setOutputPath(job, new Path(outputPath));
+        FileInputFormat.addInputPath(job, new Path(inputFile));
+        FileOutputFormat.setOutputPath(job, new Path(outputFolder));
 
         job.waitForCompletion(false);
 
-        assertTrue(FileOperator.existLocal(outputPath + "/_SUCCESS"));
-        String output = FileOperator.readLocal2String(outputPath + "/part-r-00000");
-        String answer = FileOperator.readLocal2String(answerPath);
-        assertEquals(answer, output);
+        verifyKV(readFile2String(outputFile), readFile2String(answerFile), new KVParser("\t"));
         points += 2.6D;
     }
 

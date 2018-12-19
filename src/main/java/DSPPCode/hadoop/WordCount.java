@@ -2,6 +2,7 @@ package DSPPCode.hadoop;
 
 import java.io.IOException;
 import java.util.StringTokenizer;
+import java.util.regex.Pattern;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
@@ -20,7 +21,9 @@ public class WordCount {
                 throws IOException, InterruptedException {
             StringTokenizer itr = new StringTokenizer(value.toString());
             while (itr.hasMoreTokens()) {
-                word.set(itr.nextToken());
+                String str = itr.nextToken();
+                str = Pattern.compile("\\W+").matcher(str).replaceAll("");
+                word.set(str);
                 context.write(word, one);
             }
         }
