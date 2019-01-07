@@ -12,15 +12,16 @@ public class WordCount {
 
     public static DataSet<Tuple2<String, Integer>> wordCount(DataSet<String> text) {
         //TODO 请完成该函数
-        return text.flatMap(new FlatMapFunction<String, Tuple2<String, Integer>>() {
-            public void flatMap(String value, Collector<Tuple2<String, Integer>> out) {
-                for (String token : value.split("\\W+")) {
-                    if (token.length() > 0) {
-                        out.collect(new Tuple2<String, Integer>(token, 1));
-                    }
-                }
-            }
-        }).groupBy(0).sum(1);
+        //return text.flatMap(new FlatMapFunction<String, Tuple2<String, Integer>>() {
+        //    public void flatMap(String value, Collector<Tuple2<String, Integer>> out) {
+        //        for (String token : value.split("\\W+")) {
+        //            if (token.length() > 0) {
+        //                out.collect(new Tuple2<String, Integer>(token, 1));
+        //            }
+        //        }
+        //    }
+        //}).groupBy(0).sum(1);
+        return null;
     }
 
 }
