@@ -1,17 +1,17 @@
-package DSPPTest.flink;
+package DSPPTest.flink_stream;
 
 import org.apache.flink.streaming.api.functions.source.SourceFunction;
 
 import static DSPPTest.util.FileOperator.readFile2String;
 import static java.lang.Thread.sleep;
 
-public class Source implements SourceFunction<String> {
+class Source implements SourceFunction<String> {
 
     private String inputPath;
 
     private int runningSeconds;
 
-    public Source(String inputPath, int runningSeconds) {
+    Source(String inputPath, int runningSeconds) {
         this.inputPath = inputPath;
         this.runningSeconds = runningSeconds;
     }

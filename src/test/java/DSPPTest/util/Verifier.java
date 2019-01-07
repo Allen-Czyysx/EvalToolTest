@@ -11,8 +11,8 @@ public class Verifier {
         verifyKV(output, answer, parser, parser);
     }
 
-    public static void verifyKV(String output, String answer, KVParser outputParser) throws Exception {
-        verifyKV(output, answer, outputParser, new KVParser());
+    public static void verifyKV(String output, String answer, KVParser parser) throws Exception {
+        verifyKV(output, answer, parser, parser);
     }
 
     public static void verifyKV(String output, String answer, KVParser outputParser, KVParser answerParser) throws Exception {
